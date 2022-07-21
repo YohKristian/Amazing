@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing - Admin - Add Product</title>
+</head>
+<body>
+    <%- include("../partials/navbar-admin") %>
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <h1>Add Product</h1>
+    <form action="/admin/add" method="post">
+        <p>
+            Product Name
+            <input type="text" name="name">
+        </p>
+
+        <p>
+            Short Description
+            <input type="text" name="description">
+        </p>
+
+        <p>
+            Price (Minimum 15000)
+            <input type="text" name="price">
+        </p>
+
+        <p>
+            Stock
+            <input type="text" name="stock">
+        </p>
+
+        <p>
+            Image URL
+            <input type="text" name="imageUrl">
+        </p>
+
+        <p>
+            Category
+            <select name="CategoryId">
+                <option selected disabled>-- Category --</option>
+                <% listCategories.forEach(el => { %>
+                    <option value="<%= el.id %>"><%= el.name %></option>
+                <% }) %>
+            </select>
+        </p>
+
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+</html>

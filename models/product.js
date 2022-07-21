@@ -17,14 +17,97 @@ module.exports = (sequelize, DataTypes) => {
         through: models.Order
       })
     }
+
+    static formatPriceToIDR(price) {
+      const formatIDR = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
+      return formatIDR.format(price);
+    }
+
+    stockFormat() {
+      return `Item di gudang : ${this.stock}`;
+    }
   }
   Product.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    stock: DataTypes.INTEGER,
-    imageUrl: DataTypes.STRING,
-    CategoryId: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Product name is required!"
+        },
+        notEmpty: {
+          msg: "Product name is required!"
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Short description is required!"
+        },
+        notEmpty: {
+          msg: "Short description is required!"
+        }
+      }
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Price is required!"
+        },
+        notEmpty: {
+          msg: "Price is required!"
+        },
+        min: {
+          args: 15000,
+          msg: "Price minimum is 15000"
+        }
+      }
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Stock is required!"
+        },
+        notEmpty: {
+          msg: "Stock is required!"
+        },
+        min: {
+          args: 1,
+          msg: "Stock minimum is 1"
+        }
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Image URL is required!"
+        },
+        notEmpty: {
+          msg: "Image URL is required!"
+        }
+      }
+    },
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Category is required!"
+        },
+        notEmpty: {
+          msg: "Category is required!"
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Product',
