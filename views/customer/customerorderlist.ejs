@@ -9,15 +9,13 @@
 </head>
 <body>
     <%- include("../partials/navbar-customer") %>
-    <!-- order list item yang sudah di beli -->
-    <h1>Order List</h1>
     <% if (listOrders.length === 0) { %>
-        <h2>You have not purchased an item yet!</h2>
+        <h1>You have not purchased an item yet!</h1>
     <% } else { %>
-        <h2>List of <%= usernameSession %> orders</h2>
-        <table border="1">
+        <h1>List of <%= usernameSession %> orders</h1>
+        <table class="table table-bordered" width="100%" cellspacing="0">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th>No.</th>
                     <th>Product Image</th>
                     <th>Product Name</th>
@@ -28,7 +26,7 @@
             </thead>
             <tbody>
                 <% listOrders.forEach((el, idx) => { %>
-                    <tr>
+                    <tr class="text-center">
                         <td><%= idx + 1 %></td>
                         <td><img src="<%= el.Product.imageUrl %>" width="80px" height="100px"></td>
                         <td><%= el.Product.name %></td>
