@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing - Order List</title>
+</head>
+<body>
+    <%- include("../partials/navbar-customer") %>
+    <!-- order list item yang sudah di beli -->
+    <h1>Order List</h1>
+    <h2>List of <%= usernameSession %> orders</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Buyed Stock</th>
+                <th>Order Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% listOrders.forEach((el, idx) => { %>
+                <tr>
+                    <td><%= idx + 1 %></td>
+                    <td><img src="<%= el.Product.imageUrl %>" width="80px" height="100px"></td>
+                    <td><%= el.Product.name %></td>
+                    <td><%= el.buyStock %></td>
+                    <td><%= el.orderStatus %></td>
+                    <td>
+                        <button>Complete Order</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

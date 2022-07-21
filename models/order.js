@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     UserProfileId: DataTypes.INTEGER,
     ProductId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (order, options) => {
+        order.orderStatus = false;
+      }
+    },
     sequelize,
     modelName: 'Order',
   });
