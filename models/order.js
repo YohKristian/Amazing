@@ -14,12 +14,50 @@ module.exports = (sequelize, DataTypes) => {
       Order.belongsTo(models.UserProfile)
       Order.belongsTo(models.Product)
     }
+
+    get formattedOrderStatus() {
+      if (this.orderStatus) return "Order Completed"
+      else return "Order is in progress"
+    }
   }
   Order.init({
     orderStatus: DataTypes.BOOLEAN,
-    buyStock: DataTypes.INTEGER,
-    UserProfileId: DataTypes.INTEGER,
-    ProductId: DataTypes.INTEGER
+    buyStock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Buyed stock is required!"
+        },
+        notEmpty: {
+          msg: "Buyed stock is required!"
+        }
+      }
+    },
+    UserProfileId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "User Profile is required!"
+        },
+        notEmpty: {
+          msg: "User Profile is required!"
+        }
+      }
+    },
+    ProductId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Product is required!"
+        },
+        notEmpty: {
+          msg: "Product is required!"
+        }
+      }
+    }
   }, {
     hooks: {
       beforeCreate: (order, options) => {

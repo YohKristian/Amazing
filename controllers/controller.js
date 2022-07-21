@@ -283,7 +283,7 @@ class Controller {
             where: { UserProfileId: customerId }
         })
             .then(listOrders => {
-                res.render('customer/customerorderlist', { usernameSession, listOrders });
+                res.render('customer/customerorderlist', { usernameSession, listOrders, Product });
             })
             .catch(err => {
                 res.send(err);
