@@ -218,7 +218,6 @@ class Controller {
             include: [Product, UserProfile]
         })
             .then(listOrders => {
-                console.log(listOrders);
                 res.render('admin/adminorderlist', { usernameSession, listOrders });
             })
             .catch(err => {
