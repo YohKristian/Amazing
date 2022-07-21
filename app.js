@@ -4,6 +4,7 @@ const router = require("./routers/router.js");
 const session = require('express-session')
 const port = 3000;
 
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(session({
