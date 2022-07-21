@@ -9,14 +9,48 @@
 <body>
     <%- include("../partials/navbar-admin") %>
     <!-- Di sini table barang, ada add item di navbar, edit delete item di action -->
-    <!-- Add item baru -->
-    <!-- Edit dan delete berdasarkan product id -->
-
-    <!-- Fitur search atau sort -> Search nama item -->
-    <!-- Tambahkan Static Method & Instance Method ke product -->
-    <!-- Static Method untuk description -> desc : <desc> -->
-    <!-- Instance Method untuk stock -> item di gudang : <stock> -->
-    <!-- Helper untuk format price  -> jadi Rp. <price> -->
+    <!-- Add item baru -- DONE -- -->
+    <!-- Edit dan delete berdasarkan product id -- DONE EDIT -- -->
     <h1>Home Admin</h1>
+    <h2>List Product</h2>
+    <form action="/admin" method="get">
+        <input type="text" name="search" placeholder="Product Name">
+        <button type="submit">Search</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>ImageURL</th>
+                <th>Category</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% listProducts.forEach((el, idx) => { %>
+                <tr>
+                    <td><%= idx + 1 %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.description %></td>
+                    <td><%= Product.formatPriceToIDR(el.price) %></td>
+                    <td><%= listProducts[idx].stockFormat() %></td>
+                    <td><img src="<%= el.imageUrl %>" width="80px" height="100px"></td>
+                    <td><%= el.Category.name %></td>
+                    <td><%= formattedDate(el.createdAt) %></td>
+                    <td><%= formattedDate(el.updatedAt) %></td>
+                    <td>
+                        <a href="/admin/edit/<%= el.id %>"><button>Edit Product</button></a>
+                        <a href="/admin/delete/<%= el.id %>"><button>Delete Product</button></a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
 </body>
 </html>

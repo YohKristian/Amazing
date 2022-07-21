@@ -1,4 +1,6 @@
 const { User, UserProfile, Category, Product, Order } = require("../models");
+const { formattedDate } = require("../helpers/formatter.js");
+const { Op } = require("sequelize");
 const bcrypt = require('bcryptjs');
 
 class Controller {
@@ -80,6 +82,93 @@ class Controller {
     
     //Admin Controller
     static adminHome(req, res) {
+        const usernameSession = req.session.username;
+        const searchProductName = req.query.search;
+
+        let option = {
+            include: Category
+        }
+
+        if (searchProductName) {
+            option.where = {
+                name: {
+                    [Op.iLike]: `%${searchProductName}%`
+                }
+            }
+        }
+
+        Product.findAll(option)
+            .then(listProducts => {
+                res.render('admin/admin', { usernameSession, listProducts, Product, formattedDate });
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static adminAddItem(req, res) {
+        const usernameSession = req.session.username;
+        const error = req.query.error;
+
+        Category.findAll()
+            .then(listCategories => {
+                res.render('admin/adminadditem', { usernameSession, error, listCategories });
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static adminAddItemPost(req, res) {
+        const usernameSession = req.session.username;
+        const newItem = {
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            stock: req.body.stock,
+            imageUrl: req.body.imageUrl,
+            CategoryId: req.body.CategoryId
+        }
+
+        Product.create(newItem)
+            .then(newAdddedItem => {
+                res.redirect('/admin');
+            })
+            .catch(err => {
+                if (err.name === "SequelizeValidationError") {
+                    const errorValue = err.errors.map(err => err.message)
+                    res.redirect(`/admin/add?error=${errorValue}`);
+                } else res.send(err);
+            });
+    }
+
+    static adminEditItem(req, res) {
+        const usernameSession = req.session.username;
+        const error = req.query.error;
+        const productId = +req.params.productId;
+
+        let productData;
+
+        Product.findByPk(productId)
+            .then(productById => {
+                productData = productById;
+                return Category.findAll()
+            })
+            .then(listCategories => {
+                res.render('admin/adminedititem', { usernameSession, error, listCategories, productById: productData });
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static adminEditItemPost(req, res) {
+        const usernameSession = req.session.username;
+
+        res.render('admin/admin', { usernameSession });
+    }
+
+    static adminDeleteItem(req, res) {
         const usernameSession = req.session.username;
 
         res.render('admin/admin', { usernameSession });
