@@ -43,7 +43,11 @@
                         <td><%= el.Category.name %></td>
                         <td><%= formattedDate(el.createdAt) %></td>
                         <td>
-                            <a href="/customer/buy/<%= el.id %>"><button class="btn btn-success">Buy Product</button></a>
+                            <% if (el.stock === 0) { %>
+                                <a href="#"><button class="btn btn-info">Item will be restocked shortly</button></a>
+                            <% } else { %>
+                                <a href="/customer/buy/<%= el.id %>"><button class="btn btn-success">Buy Product</button></a>
+                            <% } %>
                         </td>
                     </tr>
                 <% }) %>
