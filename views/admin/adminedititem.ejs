@@ -4,55 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <title>Amazing - Admin - Edit Product</title>
 </head>
 <body>
     <%- include("../partials/navbar-admin") %>
-    <% if (error) { %>
-        <p style="color: red;"><%= error %></p>
-    <% } %>
-    <h1>Edit Product</h1>
-    <form action="/admin/edit/<%= productById.id %>" method="post">
-        <p>
-            Product Name
-            <input type="text" name="name" value="<%= productById.name %>">
-        </p>
 
-        <p>
-            Short Description
-            <input type="text" name="description" value="<%= productById.description %>">
-        </p>
+    <h1 class="text-center">Edit Product</h1>
+    <div class="card text-center mx-auto" style="width: 50%;">
+        <div class="card-body">
+            
+            <% if (error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %>
 
-        <p>
-            Price (Minimum 15000)
-            <input type="text" name="price" value="<%= productById.price %>">
-        </p>
+            <form action="/admin/edit/<%= productById.id %>" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input type="text" name="name" id="name" class="form-control" value="<%= productById.name %>">
+                </div>
 
-        <p>
-            Stock
-            <input type="text" name="stock" value="<%= productById.stock %>">
-        </p>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Short Description</label>
+                    <input type="text" name="description" id="description" class="form-control" value="<%= productById.description %>" placeholder="Shoe with black color">
+                </div>
+        
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price (Minimum 15000)</label>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="15000" value="<%= productById.price %>">
+                </div>
 
-        <p>
-            Image URL
-            <input type="text" name="imageUrl" value="<%= productById.imageUrl %>">
-        </p>
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input type="number" name="stock" id="stock" class="form-control" placeholder="1 - 100" value="<%= productById.stock %>">
+                </div>
 
-        <p>
-            Category
-            <select name="CategoryId">
-                <option disabled>-- Category --</option>
-                <% listCategories.forEach(el => { %>
-                    <% if (el.id === productById.CategoryId) { %>
-                        <option value="<%= el.id %>" selected><%= el.name %></option>
-                    <% } else { %>
-                        <option value="<%= el.id %>"><%= el.name %></option>
-                    <% } %>
-                <% }) %>
-            </select>
-        </p>
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Image URL</label>
+                    <input type="text" name="imageUrl" id="imageUrl" class="form-control" value="<%= productById.imageUrl %>">
+                </div>
 
-        <button type="submit">Update Product</button>
-    </form>
+                <div class="mb-3">
+                    <label for="CategoryId" class="form-label">Category</label>
+                    <select name="CategoryId" id="CategoryId" class="form-control text-center">
+                        <option disabled>-- Category --</option>
+                        <% listCategories.forEach(el => { %>
+                            <% if (el.id === productById.CategoryId) { %>
+                                <option value="<%= el.id %>" selected><%= el.name %></option>
+                            <% } else { %>
+                                <option value="<%= el.id %>"><%= el.name %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Update Product</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

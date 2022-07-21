@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <title>Amazing - Home</title>
 </head>
 <body>
     <%- include("../partials/navbar-customer") %>
-    <h1>Home</h1>
     <% if (listProducts.length === 0) { %>
-        <h2>We are not quite ready yet, We're sorry</h2>
+        <h1 class="text-center">We are not quite ready yet, We're sorry</h1>
     <% } else { %>
-        <h2>List Product</h2>
-        <form action="/customer" method="get">
-            <input type="text" name="search" placeholder="Product Name">
+        <h1 class="text-center">List Product</h1>
+        <form action="/customer" method="get" class="text-center">
+            <input type="text" name="search" placeholder="Product Name" style="width: 60%;">
             <button type="submit">Search</button>
         </form>
-        <table border="1">
+        <table class="table table-bordered" width="100%" cellspacing="0">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th>No.</th>
                     <th>Image</th>
                     <th>Product Name</th>
@@ -33,7 +33,7 @@
             </thead>
             <tbody>
                 <% listProducts.forEach((el, idx) => { %>
-                    <tr>
+                    <tr class="text-center">
                         <td><%= idx + 1 %></td>
                         <td><img src="<%= el.imageUrl %>" width="80px" height="100px"></td>
                         <td><%= el.name %></td>
@@ -43,7 +43,7 @@
                         <td><%= el.Category.name %></td>
                         <td><%= formattedDate(el.createdAt) %></td>
                         <td>
-                            <a href="/customer/buy/<%= el.id %>"><button>Buy Product</button></a>
+                            <a href="/customer/buy/<%= el.id %>"><button class="btn btn-success">Buy Product</button></a>
                         </td>
                     </tr>
                 <% }) %>

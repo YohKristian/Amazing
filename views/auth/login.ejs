@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <title>Amazing - Login</title>
 </head>
 <body>
-    <% if (error) { %>
-        <p style="color: red;"><%= error %></p>
-    <% } %>
-    <a href="/register">Register ke Amazing</a>
-    <h1>Login ke Amazing</h1>
-    <form action="/login" method="post">
-        <p>
-            Email
-            <input type="text" name="email">
-        </p>
+    <nav class="nav">
+        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link active" aria-current="page" href="/login">Login</a>
+    </nav>
 
-        <p>
-            Password
-            <input type="text" name="password">
-        </p>
+    <h1 class="text-center">Login to Amazing</h1>
+    <div class="card text-center mx-auto" style="width: 50%;">
+        <div class="card-body">
 
-        <button type="submit">Login</button>
-    </form>
+            <% if (error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %>
+
+            <form action="/login" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="foo@bar.com">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="text" name="password" id="password" class="form-control">
+                </div>
+        
+                <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

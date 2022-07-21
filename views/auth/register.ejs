@@ -4,50 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <title>Amazing - Register</title>
 </head>
 <body>
-    <% if (error) { %>
-        <p style="color: red;"><%= error %></p>
-    <% } %>
-    <a href="/login">Login ke Amazing</a>
-    <h1>Register ke Amazing</h1>
-    <form action="/register" method="post">
-        <p>
-            Name
-            <input type="text" name="name">
-        </p>
+    <nav class="nav">
+        <a class="nav-link active" aria-current="page" href="/register">Register</a>
+        <a class="nav-link" href="/login">Login</a>
+    </nav>
 
-        <p>
-            Address
-            <input type="text" name="address">
-        </p>
+    <h1 class="text-center">Register to Amazing</h1>
+    <div class="card text-center mx-auto" style="width: 50%;">
+        <div class="card-body">
 
-        <p>
-            Phone Number
-            <input type="text" name="phoneNumber">
-        </p>
+            <% if (error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %>
 
-        <p>
-            Email
-            <input type="text" name="email">
-        </p>
+            <form action="/register" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                </div>
 
-        <p>
-            Password
-            <input type="text" name="password">
-        </p>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" id="address" class="form-control" placeholder="Jl. Pahlawan">
+                </div>
 
-        <p>
-            Role
-            <select name="role">
-                <option selected disabled>-- Role --</option>
-                <option value="Admin">Admin</option>
-                <option value="Customer">Customer</option>
-            </select>
-        </p>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="08XXXXXXXXXX">
+                </div>
+        
+                <div class="form-group row">
+                    <div class="col-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="email" id="email" class="form-control" placeholder="foo@bar.com">
+                    </div>
+                    <div class="col-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="text" name="password" id="password" class="form-control">
+                    </div>
+                </div>
 
-        <button type="submit">Daftar</button>
-    </form>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" id="role" class="form-control text-center">
+                        <option selected disabled>-- Role --</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                </div>
+        
+                <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

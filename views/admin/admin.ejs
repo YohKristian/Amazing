@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <title>Amazing - Admin</title>
 </head>
 <body>
     <%- include("../partials/navbar-admin") %>
-    <h1>Home Admin</h1>
-    <h2>List Product</h2>
-    <form action="/admin" method="get">
-        <input type="text" name="search" placeholder="Product Name">
+    <h1 class="text-center">List Product</h1>
+    <form action="/admin" method="get" class="text-center">
+        <input type="text" name="search" placeholder="Product Name" style="width: 60%;">
         <button type="submit">Search</button>
     </form>
-    <table border="1">
+    <table class="table table-bordered" width="100%" cellspacing="0">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>No.</th>
                 <th>Product Name</th>
                 <th>Description</th>
@@ -31,7 +31,7 @@
         </thead>
         <tbody>
             <% listProducts.forEach((el, idx) => { %>
-                <tr>
+                <tr class="text-center">
                     <td><%= idx + 1 %></td>
                     <td><%= el.name %></td>
                     <td><%= el.description %></td>
@@ -42,8 +42,8 @@
                     <td><%= formattedDate(el.createdAt) %></td>
                     <td><%= formattedDate(el.updatedAt) %></td>
                     <td>
-                        <a href="/admin/edit/<%= el.id %>"><button>Edit Product</button></a>
-                        <a href="/admin/delete/<%= el.id %>"><button>Delete Product</button></a>
+                        <a href="/admin/edit/<%= el.id %>"><button class="btn btn-primary">Edit Product</button></a>
+                        <a href="/admin/delete/<%= el.id %>"><button class="btn btn-danger">Delete Product</button></a>
                     </td>
                 </tr>
             <% }) %>
