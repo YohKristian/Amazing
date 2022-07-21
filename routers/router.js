@@ -24,6 +24,12 @@ router.get('/admin', roleAdmin, Controller.adminHome);
 router.get('/admin/add', roleAdmin, Controller.adminAddItem);
 router.post('/admin/add', roleAdmin, Controller.adminAddItemPost);
 
+router.get('/admin/orderlist/', roleAdmin, Controller.showOrderListAdmin);
+
+router.get('/admin/orderlist/finishorder/:productId', roleAdmin, Controller.finishOrder);
+
+router.get('/admin/orderlist/unfinishorder/:productId', roleAdmin, Controller.unfinishOrder);
+
 router.get('/admin/edit/:productId', roleAdmin, Controller.adminEditItem);
 router.post('/admin/edit/:productId', roleAdmin, Controller.adminEditItemPost);
 
@@ -35,6 +41,6 @@ router.get('/customer', roleCustomer, Controller.customerHome);
 router.get('/customer/buy/:productId', roleCustomer, Controller.buyProduct);
 router.post('/customer/buy/:productId', roleCustomer, Controller.buyProductPost);
 
-router.get('/customer/orderlist/', roleCustomer, Controller.showOrderList);
+router.get('/customer/orderlist/', roleCustomer, Controller.showOrderListCust);
 
 module.exports = router;

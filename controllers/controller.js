@@ -211,6 +211,57 @@ class Controller {
             });
     }
 
+    static showOrderListAdmin(req, res) {
+        const usernameSession = req.session.username;
+
+        Order.findAll({
+            include: [Product, UserProfile]
+        })
+            .then(listOrders => {
+                console.log(listOrders);
+                res.render('admin/adminorderlist', { usernameSession, listOrders });
+            })
+            .catch(err => {
+                res.send(err);
+            });
+    }
+
+    static finishOrder(req, res) {
+        const productId = +req.params.productId;
+
+        Order.findByPk(productId)
+            .then(listOrder => {
+                if (!listOrder) throw `Id ${productId} tidak ditemukan!`;
+                return Order.update({orderStatus: true}, {
+                    where: {id: productId}
+                })
+            })
+            .then(updatedStatus => {
+                res.redirect('/admin/orderlist/');
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+    
+    static unfinishOrder(req, res) {
+        const productId = +req.params.productId;
+
+        Order.findByPk(productId)
+            .then(listOrder => {
+                if (!listOrder) throw `Id ${productId} tidak ditemukan!`;
+                return Order.update({orderStatus: false}, {
+                    where: {id: productId}
+                })
+            })
+            .then(updatedStatus => {
+                res.redirect('/admin/orderlist/');
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
     //Customer Controller
     static customerHome(req, res) {
         const usernameSession = req.session.username;
@@ -274,7 +325,7 @@ class Controller {
             });
     }
 
-    static showOrderList(req, res) {
+    static showOrderListCust(req, res) {
         const usernameSession = req.session.username;
         const customerId = req.session.userProfileId;
 
