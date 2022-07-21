@@ -2,6 +2,8 @@ const Controller = require("../controllers/controller");
 const router = require("express").Router();
 const { isLoggedIn, roleAdmin, roleCustomer } = require("../middlewares/auth.js");
 
+router.get('/', Controller.toLogin);
+
 //Register
 router.get('/register', Controller.register);
 router.post('/register', Controller.registerPost);
@@ -29,5 +31,10 @@ router.get('/admin/delete/:productId', roleAdmin, Controller.adminDeleteItem);
 
 //Customer Route
 router.get('/customer', roleCustomer, Controller.customerHome);
+
+router.get('/customer/buy/:productId', roleCustomer, Controller.buyProduct);
+router.post('/customer/buy/:productId', roleCustomer, Controller.buyProductPost);
+
+router.get('/customer/orderlist/', roleCustomer, Controller.showOrderList);
 
 module.exports = router;

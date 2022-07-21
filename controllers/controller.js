@@ -4,6 +4,11 @@ const { Op } = require("sequelize");
 const bcrypt = require('bcryptjs');
 
 class Controller {
+    //Redirect to login
+    static toLogin(req, res) {
+        res.redirect('/login');
+    }
+
     //Register
     static register(req, res) {
         const error = req.query.error;
@@ -51,6 +56,7 @@ class Controller {
                         //Tambah if untuk role admin dan cust
                         req.session.userId = user.id;
                         req.session.role = user.role;
+                        req.session.userProfileId = user.UserProfile.id;
                         req.session.username = user.UserProfile.name;
 
                         if (user.role === "Admin") {
@@ -208,8 +214,80 @@ class Controller {
     //Customer Controller
     static customerHome(req, res) {
         const usernameSession = req.session.username;
+        const searchProductName = req.query.search;
 
-        res.render('customer/customer', { usernameSession });
+        let option = {
+            include: Category
+        }
+
+        if (searchProductName) {
+            option.where = {
+                name: {
+                    [Op.iLike]: `%${searchProductName}%`
+                }
+            }
+        }
+
+        Product.findAll(option)
+            .then(listProducts => {
+                res.render('customer/customer', { usernameSession, listProducts, Product, formattedDate });
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static buyProduct(req, res) {
+        const usernameSession = req.session.username;
+        const productId = +req.params.productId;
+
+        Product.findByPk(productId)
+            .then(productById => {
+                if (!productById) throw `Data product dengan id ${productId} tidak di temukan`;
+                res.render('customer/customerbuyproduct', { usernameSession, productById });
+            })
+            .catch(err => {
+                res.send(err);
+            });
+
+    }
+
+    static buyProductPost(req, res) {
+        const buyerId = req.session.userProfileId;
+        const productId = +req.params.productId;
+        const buyedStock = req.body.stock;
+
+        Order.create({buyStock: buyedStock, UserProfileId: buyerId, ProductId: productId})
+            .then(addedOrder => {
+                return Product.decrement({stock: buyedStock}, {
+                    where: { id: productId }
+                })
+            })
+            .then(updatedProduct => {
+                res.redirect('/customer')
+            })
+            .catch(err => {
+                if (err.name === "SequelizeValidationError") {
+                    const errorValue = err.errors.map(err => err.message)
+                    res.redirect(`/customer/buy?error=${errorValue}`);
+                } else res.send(err);
+            });
+    }
+
+    static showOrderList(req, res) {
+        const usernameSession = req.session.username;
+        const customerId = req.session.userProfileId;
+
+        Order.findAll({
+            include: Product,
+            where: { UserProfileId: customerId }
+        })
+            .then(listOrders => {
+                res.render('customer/customerorderlist', { usernameSession, listOrders });
+            })
+            .catch(err => {
+                res.send(err);
+            });
     }
 }
 

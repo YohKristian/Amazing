@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing - Buy Product</title>
+</head>
+<body>
+    <%- include("../partials/navbar-customer") %>
+    <!-- buy item ke form untuk isi mau beli berapa stocknya (pakai update, siapkan validate) -->
+    <h1>Buy Product</h1>
+    <h2><%= productById.name %></h2>
+    <h2><%= productById.stockFormat() %></h2>
+    <form action="/customer/buy/<%= productById.id %>" method="post">
+        <p>Buy stock (Min is 1, Max is Maximum Stock)</p>
+        <input type="number" name="stock" min="1" max="<%= productById.stock %>">
+
+        <button type="submit">Buy!</button>
+    </form>
+</body>
+</html>
