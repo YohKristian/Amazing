@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "Topi Biru",
+        "description": "Topi warna biru",
+        "price": 997069,
+        "stock": 23,
+        "CategoryId": 1
+    },
+    {
+        "id": 2,
+        "name": "Topi Merah",
+        "description": "Topi warna merah",
+        "price": 201909,
+        "stock": 78,
+        "CategoryId": 1
+    },
+    {
+        "id": 3,
+        "name": "Baju Biru",
+        "description": "Baju warna biru",
+        "price": 926071,
+        "stock": 25,
+        "CategoryId": 2
+    },
+    {
+        "id": 4,
+        "name": "Baju Merah",
+        "description": "Baju warna merah",
+        "price": 475225,
+        "stock": 5,
+        "CategoryId": 2
+    },
+    {
+        "id": 5,
+        "name": "Celana Biru",
+        "description": "Celana warna biru",
+        "price": 504218,
+        "stock": 40,
+        "CategoryId": 3
+    },
+    {
+        "id": 6,
+        "name": "Celana Merah",
+        "description": "Celana warna merah",
+        "price": 446951,
+        "stock": 49,
+        "CategoryId": 3
+    },
+    {
+        "id": 7,
+        "name": "Sepatu Biru",
+        "description": "Sepatu warna biru",
+        "price": 312836,
+        "stock": 54,
+        "CategoryId": 4
+    },
+    {
+        "id": 8,
+        "name": "Sepatu Merah",
+        "description": "Sepatu warna merah",
+        "price": 931648,
+        "stock": 49,
+        "CategoryId": 4
+    },
+    {
+        "id": 9,
+        "name": "Kaos Kaki Biru",
+        "description": "Kaos kaki warna biru",
+        "price": 171593,
+        "stock": 13,
+        "CategoryId": 5
+    },
+    {
+        "id": 10,
+        "name": "Kaos Kaki Merah",
+        "description": "Kaos kaki warna merah",
+        "price": 109416,
+        "stock": 49,
+        "CategoryId": 5
+    }
+]
