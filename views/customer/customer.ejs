@@ -8,46 +8,47 @@
 </head>
 <body>
     <%- include("../partials/navbar-customer") %>
-    <!-- Di sini table barang, ada order list di navbar, buy item di action -- DONE -- -->
-    <!-- order list item yang sudah di beli -->
-    <!-- buy item ke form untuk isi mau beli berapa stocknya (pakai update, siapkan validate) -->
     <h1>Home</h1>
-    <h2>List Product</h2>
-    <form action="/customer" method="get">
-        <input type="text" name="search" placeholder="Product Name">
-        <button type="submit">Search</button>
-    </form>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Image</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Category</th>
-                <th>Added Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% listProducts.forEach((el, idx) => { %>
+    <% if (listProducts.length === 0) { %>
+        <h2>We are not quite ready yet, We're sorry</h2>
+    <% } else { %>
+        <h2>List Product</h2>
+        <form action="/customer" method="get">
+            <input type="text" name="search" placeholder="Product Name">
+            <button type="submit">Search</button>
+        </form>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td><%= idx + 1 %></td>
-                    <td><img src="<%= el.imageUrl %>" width="80px" height="100px"></td>
-                    <td><%= el.name %></td>
-                    <td><%= el.description %></td>
-                    <td><%= Product.formatPriceToIDR(el.price) %></td>
-                    <td><%= listProducts[idx].stockFormat() %></td>
-                    <td><%= el.Category.name %></td>
-                    <td><%= formattedDate(el.createdAt) %></td>
-                    <td>
-                        <a href="/customer/buy/<%= el.id %>"><button>Buy Product</button></a>
-                    </td>
+                    <th>No.</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th>Added Date</th>
+                    <th>Action</th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% listProducts.forEach((el, idx) => { %>
+                    <tr>
+                        <td><%= idx + 1 %></td>
+                        <td><img src="<%= el.imageUrl %>" width="80px" height="100px"></td>
+                        <td><%= el.name %></td>
+                        <td><%= el.description %></td>
+                        <td><%= Product.formatPriceToIDR(el.price) %></td>
+                        <td><%= listProducts[idx].stockFormat() %></td>
+                        <td><%= el.Category.name %></td>
+                        <td><%= formattedDate(el.createdAt) %></td>
+                        <td>
+                            <a href="/customer/buy/<%= el.id %>"><button>Buy Product</button></a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
 </body>
 </html>
