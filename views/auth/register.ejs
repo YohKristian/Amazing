@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing - Register</title>
+</head>
+<body>
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <a href="/login">Login ke Amazing</a>
+    <h1>Register ke Amazing</h1>
+    <form action="/register" method="post">
+        <p>
+            Name
+            <input type="text" name="name">
+        </p>
+
+        <p>
+            Address
+            <input type="text" name="address">
+        </p>
+
+        <p>
+            Phone Number
+            <input type="text" name="phoneNumber">
+        </p>
+
+        <p>
+            Email
+            <input type="text" name="email">
+        </p>
+
+        <p>
+            Password
+            <input type="text" name="password">
+        </p>
+
+        <p>
+            Role
+            <select name="role">
+                <option selected disabled>-- Role --</option>
+                <option value="Admin">Admin</option>
+                <option value="Customer">Customer</option>
+            </select>
+        </p>
+
+        <button type="submit">Daftar</button>
+    </form>
+</body>
+</html>

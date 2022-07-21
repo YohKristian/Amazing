@@ -11,13 +11,62 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      UserProfile.belongsTo(models.User)
+      UserProfile.hasMany(models.Order)
+      UserProfile.belongsToMany(models.Product, {
+        through: models.Order
+      })
     }
   }
   UserProfile.init({
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    phoneNumber: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Name is required!"
+        },
+        notEmpty: {
+          msg: "Name is required!"
+        }
+      }
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Name is required!"
+        },
+        notEmpty: {
+          msg: "Name is required!"
+        }
+      }
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Phone number is required!"
+        },
+        notEmpty: {
+          msg: "Phone number is required!"
+        }
+      }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "User ID is required!"
+        },
+        notEmpty: {
+          msg: "User ID is required!"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'UserProfile',
