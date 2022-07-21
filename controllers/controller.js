@@ -120,7 +120,6 @@ class Controller {
     }
 
     static adminAddItemPost(req, res) {
-        const usernameSession = req.session.username;
         const newItem = {
             name: req.body.name,
             description: req.body.description,
@@ -151,6 +150,7 @@ class Controller {
 
         Product.findByPk(productId)
             .then(productById => {
+                if (!productById) throw `Data product dengan id ${productId} tidak di temukan`;
                 productData = productById;
                 return Category.findAll()
             })
@@ -163,15 +163,46 @@ class Controller {
     }
 
     static adminEditItemPost(req, res) {
-        const usernameSession = req.session.username;
+        const productId = +req.params.productId;
+        const updatedItem = {
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            stock: req.body.stock,
+            imageUrl: req.body.imageUrl,
+            CategoryId: req.body.CategoryId
+        }
 
-        res.render('admin/admin', { usernameSession });
+        Product.update(updatedItem, {
+            where : { id: productId }
+        })
+            .then(newAdddedItem => {
+                res.redirect('/admin');
+            })
+            .catch(err => {
+                if (err.name === "SequelizeValidationError") {
+                    const errorValue = err.errors.map(err => err.message)
+                    res.redirect(`/admin/add?error=${errorValue}`);
+                } else res.send(err);
+            });
     }
 
     static adminDeleteItem(req, res) {
-        const usernameSession = req.session.username;
+        const productId = +req.params.productId;
 
-        res.render('admin/admin', { usernameSession });
+        Product.findByPk(productId)
+            .then(findProduct => {
+                if (!findProduct) throw `Data product dengan id ${productId} tidak di temukan`;
+                return Product.destroy({
+                    where : { id: productId }
+                })
+            })
+            .then(newAdddedItem => {
+                res.redirect('/admin');
+            })
+            .catch(err => {
+                res.send(err);
+            });
     }
 
     //Customer Controller
