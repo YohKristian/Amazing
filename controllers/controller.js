@@ -63,6 +63,17 @@ class Controller {
                 res.send(err);
             });
     }
+
+    //Log out
+    static logout(req, res) {
+        req.session.destroy(err => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.redirect('/login');
+            }
+        })
+    }
     
     //Admin Controller
     static adminHome(req, res) {

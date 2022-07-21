@@ -9,6 +9,9 @@ router.post('/register', Controller.registerPost);
 router.get('/login', Controller.login);
 router.post('/login', Controller.loginPost);
 
+//Log out
+router.get('/logout', Controller.logout);
+
 //Middleware
 router.use((req, res, next) => {
     if (!req.session.userId) {
