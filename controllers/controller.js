@@ -82,14 +82,14 @@ class Controller {
     static adminHome(req, res) {
         const usernameSession = req.session.username;
 
-        res.render('admin', { usernameSession });
+        res.render('admin/admin', { usernameSession });
     }
 
     //Customer Controller
     static customerHome(req, res) {
         const usernameSession = req.session.username;
 
-        res.render('customer', { usernameSession });
+        res.render('customer/customer', { usernameSession });
     }
 }
 
