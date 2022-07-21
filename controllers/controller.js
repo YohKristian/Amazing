@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 class Controller {
     //Register
     static register(req, res) {
-        res.render('auth/register');
+        const error = req.query.error;
+        res.render('auth/register', { error });
     }
     
     static registerPost(req, res) {
@@ -20,14 +21,16 @@ class Controller {
                 res.redirect('/login');
             })
             .catch(err => {
-                res.send(err);
+                if (err.name === "SequelizeValidationError") {
+                    const errorValue = err.errors.map(err => err.message)
+                    res.redirect(`/register?error=${errorValue}`);
+                } else res.send(err);
             })
     }
 
     //Login
     static login(req, res) {
         const error = req.query.error;
-        console.log(error);
         res.render('auth/login', { error });
     }
 
