@@ -4,7 +4,8 @@
   "description": "- Merupakan Pair Project di akhir Phase 1 Hacktiv8\r - Menggunakan MVP date-fns - https://date-fns.org/v2.28.0/docs/Getting-Started",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
